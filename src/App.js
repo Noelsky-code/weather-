@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import './App.css';
+import Weather from './Weather.js'
 
 
 class App extends Component{
@@ -13,7 +14,7 @@ componentDidMount(){
 }
 
 _callApi= () =>{
-  return (fetch('https://api.openweathermap.org/data/2.5/weather?id=6167865&appid=1b35fd0006e39bc93976cade7e656d07')
+  return (fetch('https://api.openweathermap.org/data/2.5/weather?q=Daegu&appid=1b35fd0006e39bc93976cade7e656d07&units=metric')
           .then(
             (request)=>{return request.json()}    
         )
@@ -29,9 +30,18 @@ _callApi= () =>{
  }
 
  _renderWeather=()=>{
-    return (<h1>{this.state.weather.name}</h1>
+  const data = this.state.weather  
+  return (
+   <Weather 
+     city = {data.name} 
+     temp = {data.wind.speed}  
+    />
+    /*<div>
+      <h1>{data.name}</h1>
+      <h1>{data.main.temp}</h1>
+    </div>*/
     );
-    }
+  }
 
   render(){
     return (
