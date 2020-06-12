@@ -5,11 +5,23 @@ import { render } from '@testing-library/react';
 
 function Weather({city,temp}){
         return(
-             <div className="Weather">
-                <h1>{city}</h1>
-                <h1>{temp}</h1>
-           </div>
+        <div className="Weather">
+                <City city = {city}/>
+                <Temp temp = {temp}/>       
+         </div>
         );
+}
+
+function City({city}){
+
+        return(
+        <div className="City">{city}</div>)
+}
+
+function Temp({temp}){
+
+        return(<div className="Temp">{temp}</div>
+        )
 }
 
 export default Weather;

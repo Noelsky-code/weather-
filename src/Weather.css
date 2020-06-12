@@ -1,0 +1,14 @@
+.Weather {
+    background-color: gray;
+    padding: 100px ;
+    font-size : 20px;
+    display:flex;
+    margin-left: 200px;
+    margin-top: 200px;
+    margin-right: 200px;
+    margin-right: 200px;
+}
+
+.Weather.City{
+    font-size :100px;
+}

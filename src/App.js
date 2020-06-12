@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import './App.css';
 import Weather from './Weather.js'
+import {Spinner} from 'reactstrap'
 
 
 class App extends Component{
@@ -25,7 +26,7 @@ _callApi= () =>{
  _getWeather=async()=>{
    const weather =await this._callApi();
     this.setState({
-      weather:weather
+      weather
     })
  }
 
@@ -36,17 +37,26 @@ _callApi= () =>{
      city = {data.name} 
      temp = {data.wind.speed}  
     />
-    /*<div>
-      <h1>{data.name}</h1>
-      <h1>{data.main.temp}</h1>
-    </div>*/
     );
   }
+_onChange=(e)=>{
+  this.setState({
+    name : e.target.value
+  })
+  console.log(this.state.name)
+
+}
 
   render(){
     return (
       <div className = "App">
-      {this.state.weather ? this._renderWeather() : "Loading!"}
+       <input type="text" placeholder="Enter City Name" onChange={this._onChange}></input>
+      {this.state.weather ? this._renderWeather() : 
+        <h1>
+         <Spinner color ="primary"/>
+          <h5>Loading!</h5>
+        </h1>
+      }
       </div>
     );
  }
