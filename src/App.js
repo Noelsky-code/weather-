@@ -7,15 +7,15 @@ import {Spinner} from 'reactstrap'
 class App extends Component{
 
 state = {
-
+  
 }
 
 componentDidMount(){
-  this._getWeather()
+ // this._getWeather()
 }
 
-_callApi= () =>{
-  return (fetch('https://api.openweathermap.org/data/2.5/weather?q=Daegu&appid=1b35fd0006e39bc93976cade7e656d07&units=metric')
+_callApi= (name) =>{
+  return (fetch('https://api.openweathermap.org/data/2.5/weather?q=name&appid=1b35fd0006e39bc93976cade7e656d07&units=metric')
           .then(
             (request)=>{return request.json()}    
         )
@@ -24,7 +24,8 @@ _callApi= () =>{
 }
   
  _getWeather=async()=>{
-   const weather =await this._callApi();
+   const a =this.state.name
+   const weather =await this._callApi(a);
     this.setState({
       weather
     })
@@ -35,22 +36,28 @@ _callApi= () =>{
   return (
    <Weather 
      city = {data.name} 
-     temp = {data.wind.speed}  
+     //temp = {data.main.temp}  
     />
     );
   }
 _onChange=(e)=>{
   this.setState({
     name : e.target.value
-  })
-  console.log(this.state.name)
+  }
+  )
+}
 
+_OnKeyPress=(e)=>{
+
+  e.key==='Enter'&&this._getWeather()
+  
 }
 
   render(){
     return (
       <div className = "App">
-       <input type="text" placeholder="Enter City Name" onChange={this._onChange}></input>
+       <input type="text" placeholder="Enter City Name" onChange={this._onChange}
+        onKeyPress = {this._OnKeyPress}></input>
       {this.state.weather ? this._renderWeather() : 
         <h1>
          <Spinner color ="primary"/>
